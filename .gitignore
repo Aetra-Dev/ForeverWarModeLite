@@ -1,0 +1,14 @@
+# release artifacts (the zip is attached to the GitHub release, not committed)
+*.zip
+release/
+# local game data and logs
+SavedVariables/
+WTF/
+*.log
+# editor / OS / scratch
+*.bak
+*.tmp
+.DS_Store
+Thumbs.db
+__pycache__/
+.claude/

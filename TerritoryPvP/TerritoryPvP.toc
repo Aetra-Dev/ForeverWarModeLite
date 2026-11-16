@@ -1,0 +1,11 @@
+## Interface: 16001
+## Title: Forever War Mode Lite
+## Notes: Faction shield that shows your PvP flag and prompts you to click when your territory calls for PvP. Not affiliated with Blizzard Entertainment.
+## Author: Aetra
+## X-Website: https://github.com/Aetra-Dev/ForeverWarModeLite
+## Version: 0.9.0-beta
+## SavedVariables: TerritoryPvPDB
+## SavedVariablesPerCharacter: TerritoryPvPCharDB
+
+Zones.lua
+TerritoryPvP.lua
