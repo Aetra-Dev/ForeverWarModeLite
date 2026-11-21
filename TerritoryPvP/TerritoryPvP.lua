@@ -8,7 +8,7 @@
 
 local ADDON, ns = ...
 
-local VERSION = "0.9.0-beta"   -- fallback only; the real value comes from the .toc
+local VERSION = "0.9.1-beta"   -- fallback only; the real value comes from the .toc
 local TITLE = "Forever War Mode Lite"   -- display name; internal identifiers keep the TerritoryPvP name
 do
     local get = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
@@ -26,6 +26,16 @@ local function zoneName(fallback)
     if z and z ~= "" then return z end
     return fallback
 end
+-- Name of a map from the map data itself. Unlike GetRealZoneText it does not name a building you stand in
+-- ("Lion's Pride Inn") or the nearest coast while you are at sea. Used for the zone log only.
+local function mapName(mapID, fallback)
+    local ok, info = pcall(function() return C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(mapID) end)
+    if ok and info and info.name and info.name ~= "" then return info.name end
+    return zoneName(fallback)
+end
+-- Continent maps (1414 Kalimdor, 1415 Eastern Kingdoms) are what boats and open sea report. They are
+-- deliberately not in the zone table, so the report notes them instead of flagging them.
+local CONTINENT_MAP = { [1414] = true, [1415] = true }
 -- Raid-warning style banner in the middle of the screen. Falls back to the red-text error frame
 -- if the raid notice frame is unavailable.
 local function screen(msg)
@@ -122,7 +132,7 @@ local function Record(mapID, newVisit)
     local zones = TerritoryPvPDB.zones
     local z = zones[mapID]
     if not z then z = { n = 0, api = {}, subs = {}, fac = {} }; zones[mapID] = z end
-    z.name = zoneName(z.name)
+    z.name = mapName(mapID, z.name)
     if newVisit then z.n = z.n + 1 end
     local okp, label = pcall(function() return C_PvP.GetZonePVPInfo() end)
     z.api[(okp and label) or "none"] = true
@@ -636,7 +646,7 @@ local function BuildReport()
     for _, id in ipairs(ids) do
         local z = TerritoryPvPDB.zones[id]
         local flags = {}
-        if z.table == "unlisted" then flags[#flags + 1] = "UNLISTED" end
+        if z.table == "unlisted" and not CONTINENT_MAP[id] then flags[#flags + 1] = "UNLISTED" end
         if z.override then flags[#flags + 1] = "OVERRIDE=" .. z.override end
         if z.table and z.table ~= "unlisted" then
             for label in pairs(z.api) do
@@ -652,9 +662,11 @@ local function BuildReport()
                 end
             end
         end
+        local flagText = #flags > 0 and table.concat(flags, "; ") or "-"
+        if CONTINENT_MAP[id] then flagText = "continent map (sea or boat), intentionally unlisted" end
         local line = ("%d | %s | %s | %s | %s | %d | %s | %s"):format(
             id, z.name or "?", z.table or "?", joined(z.api), joined(z.fac), z.n or 0,
-            #flags > 0 and table.concat(flags, "; ") or "-", joined(z.subs))
+            flagText, joined(z.subs))
         all[#all + 1] = line
         if #flags > 0 then attention[#attention + 1] = line end
     end

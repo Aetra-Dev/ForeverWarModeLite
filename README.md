@@ -1,4 +1,4 @@
-# Forever War Mode Lite 0.9.0-beta
+# Forever War Mode Lite 0.9.1-beta
 
 **Forever War Mode Lite brings War Mode-inspired, territory-aware PvP controls to WoW Forever Normal (PvE) realms.**
 
@@ -29,7 +29,7 @@ The game's `/pvp` command is a toggle, so the add-on arms only the click whose r
 Tested in game: both the "cast on key down" and the key-up click setting, and both the shield and the minimap icon, in and out of combat.
 
 ## Install (first time)
-1. Download `ForeverWarModeLite-0.9.0-beta.zip` and extract it. You get a folder named `TerritoryPvP`.
+1. Download `ForeverWarModeLite-0.9.1-beta.zip` and extract it. You get a folder named `TerritoryPvP`.
 2. Copy that folder into your WoW Forever add-ons folder:
    `...\World of Warcraft\_forever_\Interface\AddOns\`
    The path must end `...\AddOns\TerritoryPvP\TerritoryPvP.toc`. If there is a second `TerritoryPvP` folder inside it, move the inner one up.
@@ -38,6 +38,11 @@ Tested in game: both the "cast on key down" and the key-up click setting, and bo
 5. Log in. The shield appears near the middle of the screen; Ctrl-drag it where you want it.
 
 The folder keeps the name `TerritoryPvP` on purpose, so saved settings carry over between versions.
+
+## Update from an earlier version
+1. Close the game completely.
+2. Delete the old `TerritoryPvP` folder from `...\_forever_\Interface\AddOns\`, then copy in the new one. (Or extract over it and let your unzip tool replace every file.) Do not touch the `WTF` folder: your settings live there, not in the add-on folder.
+3. Start the game. Your settings, shield position and per-character mode carry over. If the client says the add-on is out of date, tick "Load out of date AddOns".
 
 ## Commands (`/tpvp`)
 | Command | What it does |
@@ -54,9 +59,9 @@ The folder keeps the name `TerritoryPvP` on purpose, so saved settings carry ove
 | `debug`, `reset` | diagnostics (debug is off by default); reset positions |
 
 ## The zone data
-Zone ownership (Alliance, Horde, contested) comes from the **Icy Veins WoW Forever zone report** ("Not Sure Where to Level in WoW Forever? Here's Every Zone from 1 to 60", dated Nov 9, 2026). It is not historical Classic data. Capital cities are not on that report and are classed from the game's own "friendly" label.
+Zone ownership (Alliance, Horde, contested) comes from the **Icy Veins WoW Forever zone report** ("Not Sure Where to Level in WoW Forever? Here's Every Zone from 1 to 60", dated Nov 9, 2026), with two exceptions: Wetlands, Redridge Mountains and Duskwood follow **Wowhead's WoW Forever world map**, which labels them Contested, and the zones missing from the Icy Veins list (Moonglade, Mount Hyjal, Riverglades, Shen'dralas, Zephras Isle) also follow Wowhead's map. It is not historical Classic data. Capital cities are not on either source and are classed from the game's own "friendly" label.
 
-The numeric map IDs are still being verified: **16 of 46** have been confirmed in the Forever client and **30** come from another client's ID scheme and may be wrong. Zones that are not listed, open sea, boats and Deeprun Tram count as unknown and never trigger a prompt. The full table with evidence is in `ZONE_VALIDATION.md` in the GitHub repository.
+The numeric map IDs are still being verified: **22 of 50** have been confirmed in the Forever client. The other **28** match the standard map-ID lists (Warcraft Wiki and Wowhead) by zone name but have not been seen in the Forever client yet, and may be wrong. Zones that are not listed, open sea, boats and Deeprun Tram count as unknown and never trigger a prompt. The full table with evidence is in `ZONE_VALIDATION.md` in the GitHub repository.
 
 ## Beta limitations
 - Flagging always needs a click.

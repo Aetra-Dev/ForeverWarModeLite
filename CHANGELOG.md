@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.9.1-beta
+Zone data update. No change to clicks, modes, icons or saved settings.
+
+- Wetlands, Redridge Mountains and Duskwood are now **contested** (Alliance players now get the glow and reminders there). The previous Alliance class came from the Icy Veins zone list; Wowhead's WoW Forever map labels all three Contested.
+- Added Mount Hyjal, Riverglades, Shen'dralas and Zephras Isle as contested. Their map IDs come from Wowhead's map data and are not yet confirmed in game.
+- Fixed ID 1450: it is **Moonglade**, not Mount Hyjal. It stays contested.
+- 22 of 50 map IDs are now verified in the Forever client (added Darkshore, Tanaris, Darnassus, Duskwood, Redridge Mountains and Moonglade from tester reports). Every ID also matches the Warcraft Wiki and Wowhead lists by name.
+- `/tpvp report`: continent maps (1414, 1415, reported at sea or on boats) are noted as continent maps instead of flagged, and zone names now come from the map data, so a building such as "Lion's Pride Inn" no longer replaces the zone name.
+
 ## 0.9.0-beta (first public release)
 Beta. Not a validated 1.0 release.
 
